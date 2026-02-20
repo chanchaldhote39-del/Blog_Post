@@ -2,20 +2,55 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Blog,Category
 from django.shortcuts import get_object_or_404,redirect
+from django.db.models import Q
 
-# Create your views here.
-def post_by_category(request,pk):
-    # fetch the post that belongs to category with the id pk
-    posts = Blog.objects.filter(status='published',pk=pk)
-    try:
-        category = Category.objects.get(pk=pk)
-    except:
-        # redirect to home page
-        return   redirect('home')
-#    redirect(category = get_object_or_404(category, pk=pk)) i f we want to show error page if id does not exist
+def post_by_category(request, category_id):
+    # Fetch the posts that belongs to the category with the id category_id
+    posts = Blog.objects.filter(status='Published', category=category_id)
+    # Use try/except when we want to do some custom action if the category does not exists
+    # try:
+    #     category = Category.objects.get(pk=category_id)
+    # except:
+    #     # redirect the user to homepage
+    #     return redirect('home')
+    
+    # Use get_object_or_404 when you want to show 404 error page if the category does not exist
+    category = get_object_or_404(Category, pk=category_id)
+    
+    context = {
+        'posts': posts,
+        'category': category,
+    }
+    return render(request, 'post_by_category.html', context)
+
+
+
+
+def blogs(request, slug):
+    single_blog = get_object_or_404(Blog, slug=slug, status='published')
+    context = {
+        'single_blog' :single_blog,
+    }
+    return render(request, 'blogs.html', context)
+
+
+
+def search(request):
+    keyword = request.GET.get('keyword', '').strip()
+
+    if keyword:
+        blogs = Blog.objects.filter(
+            Q(title__icontains=keyword) |
+            Q(short_description__icontains=keyword) |
+            Q(blog_body__icontains=keyword),
+            status='Published'
+        )
+    else:
+        blogs = Blog.objects.none()
 
     context = {
-        'posts' : posts,
-        'category':category,
+        'blogs': blogs,
+        'keyword': keyword
     }
-    return render(request, 'post_by_category.html',context)
+
+    return render(request, 'search.html', context)
