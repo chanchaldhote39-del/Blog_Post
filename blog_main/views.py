@@ -51,7 +51,7 @@ def login(request):
             user = form.get_user()   # ✅ better way
             
             auth.login(request, user)
-            return redirect('home')
+            return redirect('dashboard')
     else:
         form = AuthenticationForm()
 

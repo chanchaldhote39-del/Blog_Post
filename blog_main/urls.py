@@ -34,6 +34,10 @@ urlpatterns = [
     path('logout/',views.logout,name='logout'),
 
 
+    # dashboard
+    path('dashboard/',include('dashboards.urls'))
+
+
 
 
     
