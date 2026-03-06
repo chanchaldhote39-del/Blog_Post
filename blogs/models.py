@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.template.defaultfilters import slugify
 # catagory model
 
 class Category(models.Model):
@@ -22,7 +23,7 @@ STATUS_CHOICES =(
 
 class Blog(models.Model):
     title = models.CharField(max_length=100)
-    slug =models.SlugField(max_length=150, unique=True, blank=True)
+    slug = models.SlugField(max_length=150, unique=True, blank=True, null=True)
     category =models.ForeignKey(Category,on_delete=models.CASCADE)  #blog post also deleted releted to that catagory
     author = models.ForeignKey(User, on_delete=models.CASCADE) #if the user is deleted then user releted blog post also deleted
     featured_image = models.ImageField(upload_to='uploads/%Y/%m/%d')
