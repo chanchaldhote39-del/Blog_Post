@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Category
-from.models import Blog
+from.models import Blog 
+
 
 
 class BlogAdmin(admin.ModelAdmin):
