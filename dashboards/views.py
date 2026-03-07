@@ -146,6 +146,8 @@ def edit_users(request,pk):
         if form.is_valid():
             form.save()
             return redirect('users')
+        else:
+            print(form.errors)
     form = EditUserForm(instance=user)
     context = {
         'form' :form,
