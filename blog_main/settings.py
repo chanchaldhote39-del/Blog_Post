@@ -60,7 +60,7 @@ ROOT_URLCONF = 'blog_main.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -128,7 +128,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'static'
 STATICFILES_DIRS = [
-    'blog_main/static',
+    BASE_DIR / 'blog_main/static',
 ]
 
 
