@@ -33,12 +33,12 @@
         </div>
         <div class="col-4 d-flex justify-content-end align-items-center">
         {% if not user.is_authenticated %}
-          <a class="btn btn-sm btn-warning" href="{% url 'login' %}">Login</a> &nbsp;
-          <a class="btn btn-sm btn-outline-secondary" href="{% url 'register' %}">Register</a>
+          <a class="btn btn-sm btn-warning" class="btn btn-sm btn-warning" href="{% url 'login' %}">Login</a> &nbsp;
+          <a class="btn btn-sm btn-outline-primary" href="{% url 'register' %}">Register</a>
         {% else %}  
-        <span><a href="{% url 'dashboard' %}">Dashboard</a></span>
+        <span><a class="btn btn-sm btn-success" href="{% url 'dashboard' %}">Dashboard</a></span>
         &emsp;
-        <span><a href="{% url 'logout' %}">Logout</a></span>
+        <span><a class="btn btn-sm btn-danger" href="{% url 'logout' %}">Logout</a></span>
         {% endif %}
         </div>
       </div>
@@ -60,7 +60,7 @@
 
     <!-- foter part -->
     <footer class="blog-footer">
-      <p>Django blog built with � by <a href="#">Rathan Kumar</a></p>
+      <p>Django blog built with � by <a href="#">Chanchal Dhote</a></p>
     </footer>
 </body>
 

@@ -131,6 +131,8 @@ def add_users(request):
         if form.is_valid():
             form.save()
             return redirect('users')
+        else:
+            print(form.errors)
     form = UserAddForm()
     
     context  = {
@@ -151,6 +153,7 @@ def edit_users(request,pk):
     form = EditUserForm(instance=user)
     context = {
         'form' :form,
+        'user' :user,
     }
     return render(request, 'dashboard/edit_users.html',context)
 
