@@ -24,6 +24,9 @@ def categories(request):
 
 
 def add_category(request):
+    if not request.user.is_staff and not request.user.is_superuser:
+        return redirect('dashboard')
+    
     if request.method == 'POST':
         form = CategoryForm(request.POST)
         if form.is_valid():
@@ -37,6 +40,9 @@ def add_category(request):
 
 
 def edit_category(request,pk):
+    if not request.user.is_staff and not request.user.is_superuser:
+        return redirect('dashboard')
+    
     category = get_object_or_404(Category, pk=pk)
     if request.method == 'POST':
         form = CategoryForm(request.POST, instance=category)
@@ -51,6 +57,9 @@ def edit_category(request,pk):
     return render(request, 'dashboard/edit_category.html', context)
 
 def delete_category(request,pk):
+    if not request.user.is_staff and not request.user.is_superuser:
+        return redirect('dashboard')
+    
     category = get_object_or_404(Category, pk=pk)
     category.delete()
     return redirect('categories')
@@ -59,7 +68,7 @@ def delete_category(request,pk):
 # post view
 
 def posts(request):
-    posts = Blog.objects.all()
+    posts = Blog.objects.all().order_by('-created_at')
     context ={
         'posts':posts
     }
@@ -93,12 +102,16 @@ def add_posts(request):
 
 def edit_posts(request,pk):
     post = get_object_or_404(Blog,pk=pk)
+    
+    if request.user != post.author and not request.user.is_superuser:
+        return redirect('posts')
+    
     if request.method == 'POST':
         form = BlogPostForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
             post = form.save()
             title = form.cleaned_data['title']
-            post.slug = slugify(title) + '-' +str(post.id)
+            post.slug = slugify(title) + '-' + str(post.id)
             post.save()
             return redirect('posts')
     form = BlogPostForm(instance=post)
@@ -110,6 +123,9 @@ def edit_posts(request,pk):
 
 def delete_posts(request,pk):
     post = get_object_or_404(Blog, pk=pk)
+    if request.user != post.author and not request.user.is_superuser:
+        return redirect('posts')
+   
     post.delete()
     return redirect('posts')
 

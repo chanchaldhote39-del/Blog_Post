@@ -30,7 +30,7 @@ def register(request):
         form = RegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('login')
+            return redirect('register')
         else:
             print(form.errors)
     else:
