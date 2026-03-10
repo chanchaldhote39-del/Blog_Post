@@ -134,9 +134,8 @@ LOGIN_REDIRECT_URL = 'dashboard'
 
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR /'media'
+MEDIA_ROOT = BASE_DIR.parent /'media'
 
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
