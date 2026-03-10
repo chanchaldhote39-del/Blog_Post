@@ -27,10 +27,10 @@ def home(request):
 
 def register(request):
     if request.method == 'POST':
-        form = RegistrationForm(request.POST)
+        form = RegistrationForm(data=request.POST)
         if form.is_valid():
             form.save()
-            return redirect('register')
+            return redirect('login')
         else:
             print(form.errors)
     else:
