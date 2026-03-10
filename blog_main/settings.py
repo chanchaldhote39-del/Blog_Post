@@ -134,7 +134,7 @@ LOGIN_REDIRECT_URL = 'dashboard'
 
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR.parent /'media'
+MEDIA_ROOT = BASE_DIR /'media'
 
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

@@ -94,11 +94,11 @@ def add_posts(request):
 def edit_posts(request,pk):
     post = get_object_or_404(Blog,pk=pk)
     if request.method == 'POST':
-        form = BlogPostForm(request.POST, instance=post)
+        form = BlogPostForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
             post = form.save()
             title = form.cleaned_data['title']
-            post.slug = slugify('title') + '-' +str(post.id)
+            post.slug = slugify(title) + '-' +str(post.id)
             post.save()
             return redirect('posts')
     form = BlogPostForm(instance=post)
